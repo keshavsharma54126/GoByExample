@@ -41,7 +41,32 @@ func PrintShapeDetails(s shape){
 func PrintValue(val interface{}){
     fmt.Println("Value: ", val)
 }
-func main(){
+
+type email struct{
+    isSubscribed bool
+    body string
+}
+
+type printer interface{
+    print()
+}
+
+type expense interface{
+    cost() float64
+}
+
+func (e email) cost() float64{ 
+    if !e.isSubscribed {
+        return 0.05*float64(len(e.body))
+    }
+    return 0.01*float64(len(e.body))
+}
+
+func (e email) expense(){
+    fmt.Println(e.body)
+}
+
+func main1(){
 	rectanle := Rectangle{width:2,height:2}
     circle:= Circle{radius: 2}
     PrintShapeDetails(rectanle)
@@ -49,5 +74,6 @@ func main(){
     PrintValue(23)
     PrintValue("hello")
     PrintValue(Circle{4.0})
+
 
 }
