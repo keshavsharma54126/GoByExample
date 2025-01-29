@@ -23,8 +23,43 @@ func makeTea(arg int) error {
 	}
 	return nil
 }
+func sendsmsTocouple(msgToCustomer, msgToSpuse string) (float64, error) {
+	cost, err := sendSMS(msgToCustomer)
+	if err != nil {
+		return 0.0, err
+	}
+	constForSpuse, err := sendSMS(msgToSpuse)
+	if err != nil {
+		return 0.0, err
+	}
+	return cost + constForSpuse, nil
+}
+func sendSMS(message string) (float64, error) {
+	const maxTextLen = 25
+	const costPerChat = 0.0002
+	if len(message) > maxTextLen {
+		return 0.0, fmt.Errorf("can't send text over %v characters", maxTextLen)
+	}
+	return costPerChat * float64(len(message)), nil
+}
+
+// the error interface 
+type divideError struct{
+	divident float64
+}
+func (de divideError) Error() string {
+	return fmt.Sprintf("can not divide %v by zero",de.divident)
+}
+
+
 
 func main() {
+	totalcost, err := sendsmsTocouple("asdlfhoiwerhowerwer", ";lkjlhsadflkjhsadf")
+	if err != nil {
+		fmt.Println("error occured", err)
+	} else {
+		fmt.Println(totalcost)
+	}
 	for _, i := range []int{7, 42} {
 		if r, e := f(i); e != nil {
 			fmt.Println("f failed: ", e)
