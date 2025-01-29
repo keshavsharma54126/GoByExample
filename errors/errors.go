@@ -52,7 +52,6 @@ func (de divideError) Error() string {
 }
 
 
-
 func main() {
 	totalcost, err := sendsmsTocouple("asdlfhoiwerhowerwer", ";lkjlhsadflkjhsadf")
 	if err != nil {
