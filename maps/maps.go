@@ -46,6 +46,16 @@ func deleteIfNecessary(users map[string]users, name string) (deleted bool, err e
 	}
 }
 
+func getCounts(userIds []string) map[string]int {
+	counts := make(map[string]int)
+	for i := 0; i < len(userIds); i++ {
+		
+		counts[userIds[i]]++
+		
+	}
+	return counts
+}
+
 func main() {
 	names := []string{"keshav", "ruchi"}
 	phoneNumber := []int{123423443, 12342314}
