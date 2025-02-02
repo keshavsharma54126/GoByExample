@@ -23,6 +23,20 @@ func selfMath(mathFunc func(int,int) int) func(int)int{
 	}
 }
 
+func colonDelimit(first,second string)string{
+	return first+ ": "+second
+}
+
+func commaDelimit(first,second string)string{
+	return first+ ", "+second
+}
+
+func getLogger(formatter func(string,string)string)func(string,string){
+	return func(str1,str2 string){
+		fmt.Println(formatter(str1,str2))
+	}
+}
+
 func main(){
 	fmt.Println(aggregator(2,3,5,add))
 	fmt.Println(aggregator(2,3,5,mul))
@@ -31,4 +45,6 @@ func main(){
 
 	fmt.Println(squareFunc(3))
 	fmt.Println(doubleFunc(4))
+
+	
 }
