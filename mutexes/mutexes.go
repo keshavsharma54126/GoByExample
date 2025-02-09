@@ -12,7 +12,6 @@ type safeCounter struct {
 	mux2   *sync.RWMutex
 }
 
-
 func (sc safeCounter) inc(key string) {
 	sc.mux.Lock()
 	defer sc.mux.Unlock()
@@ -31,7 +30,11 @@ func (sc safeCounter) slowIncrement(key string) {
 }
 
 // RW Mutex(it can give you read and write locak and unlock also along with lock and unlock)
-func(sc safeCounter) rval(key string) int{}
+func (sc safeCounter) rval(key string) int {
+	sc.mux2.RLock()
+	defer sc.mux2.RUnlock()
+	return sc.counts[key]
+}
 
 func main() {
 	sc := safeCounter{
